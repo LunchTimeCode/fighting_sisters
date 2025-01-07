@@ -23,3 +23,6 @@ publish:
 
 l_pub:
     cargo publish
+
+m:
+    html2maud-bin
