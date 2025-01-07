@@ -17,6 +17,7 @@ fn example() -> Markup {
                     "Hello world!"
                 }
             }
+            img src="http://localhost:12501/_assets/png/barrel_E" alt="isometric" {}
         }
     }
 }

@@ -1,3 +1,5 @@
+use std::env;
+
 use rocket::{Build, Rocket};
 
 #[macro_use]
@@ -9,9 +11,10 @@ mod page;
 
 #[launch]
 fn rocket() -> _ {
+    env::set_var("ROCKET_port", "12500");
+    env::set_var("ROCKET_address", "0.0.0.0");
+
     let rocket = rocket::build();
-    let rocket = rocket.configure(rocket::Config::figment().merge(("port", 12500)));
-    let rocket = rocket.configure(rocket::Config::figment().merge(("address", "0.0.0.0")));
 
     mount(rocket)
 }

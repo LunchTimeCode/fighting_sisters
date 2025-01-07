@@ -1,11 +1,19 @@
 # Perform all verifications (compile, test, lint, etc.)
 @verify: test lint
+    cd  asset_server && just verify
     echo ------------ verify done! ------------  
 
+kill port:
+     lsof -t -i:{{port}} | xargs -r kill
+    
+files:
+    just kill 12501
+    cd asset_server && just run &
+    
 run:
     cargo run
 
-# Run tests    
+# Run tests
 test:
     cargo test
 
@@ -15,8 +23,8 @@ lint:
     cargo clippy
 
 fmt:
+    cd asset_server && just fmt
     cargo fmt
-
 
 publish:
     cargo publish --token $GLOBAL_CARGO_TOKEN
