@@ -11,14 +11,65 @@ pub fn body() -> content::RawHtml<String> {
 fn example() -> Markup {
     html! {
 
-        body {
-            main."container" {
-                h1 {
-                    "Hello world!"
+    body {
+            nav {
+                ul {
+                    li {
+                        strong {
+                            "Fighting Sisters"
+                        }
+                    }
+                }
+                ul {
+                    li {
+                        a."secondary" href="#" {
+                            "Map"
+                        }
+                    }
+                    li {
+                        a."secondary" href="#" {
+                            "Group"
+                        }
+                    }
+                    li {
+                        a."secondary" href="#" {
+                            "Powers"
+                        }
+                    }
+                    li {
+                        details."dropdown" {
+                            summary {
+                                "Menu"
+                            }
+                            ul dir="rtl" {
+                                li {
+                                    a href="#" {
+                                        "Profile"
+                                    }
+                                }
+                                li {
+                                    a href="#" {
+                                        "Settings"
+                                    }
+                                }
+                                li {
+                                    a href="#" {
+                                        "Save"
+                                    }
+                                }
+                                li {
+                                    a href="#" {
+                                        "Info"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            img src="http://localhost:12501/_assets/png/barrel_E" alt="isometric" {}
         }
+
+        img src="http://localhost:12500/_assets/png/barrel_E.png" alt="isometric" {}
     }
 }
 
