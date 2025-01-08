@@ -5,7 +5,7 @@
 kill port:
      lsof -t -i:{{port}} | xargs -r kill
     
-run:
+run: tw
     cargo run
 
 # Run tests
@@ -20,6 +20,9 @@ lint:
 fmt:
     cargo fmt
 
+w:
+    cargo watch --ignore 'assets/css' -s 'just run'
+
 publish:
     cargo publish --token $GLOBAL_CARGO_TOKEN
 
@@ -28,3 +31,13 @@ l_pub:
 
 m:
     html2maud-bin
+
+tw-install:
+    bun install -D tailwindcss
+    bunx tailwindcss init
+
+d-install:
+    bun add -D daisyui@latest
+
+tw:
+     bunx tailwindcss build -i ./assets/css/styles.css -o ./assets/css/tw.css --minify

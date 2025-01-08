@@ -12,64 +12,44 @@ fn example() -> Markup {
     html! {
 
     body {
-            nav {
-                ul {
-                    li {
-                        strong {
-                            "Fighting Sisters"
-                        }
-                    }
+
+        div."navbar bg-base-100" {
+            div."flex-1" {
+                a."btn btn-ghost text-xl" {
+                    "Fighting Sisters"
                 }
-                ul {
-                    li {
-                        a."secondary" href="#" {
-                            "Map"
+            }
+            div."flex-none" {
+
+                div."dropdown dropdown-end" {
+                    div."btn btn-ghost btn-circle avatar" tabindex="0" role="button" {
+                        div."w-10 rounded-full" {
+                            img alt="Char" src="/_assets/png/portraits/silver_siren.png";
                         }
                     }
-                    li {
-                        a."secondary" href="#" {
-                            "Group"
-                        }
-                    }
-                    li {
-                        a."secondary" href="#" {
-                            "Powers"
-                        }
-                    }
-                    li {
-                        details."dropdown" {
-                            summary {
-                                "Menu"
-                            }
-                            ul dir="rtl" {
-                                li {
-                                    a href="#" {
-                                        "Profile"
-                                    }
+                    ul."menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow" tabindex="0" {
+                        select data-choose-theme {
+                                option value="" {
+                                    "Default"
                                 }
-                                li {
-                                    a href="#" {
-                                        "Settings"
-                                    }
+                                option value="dark" {
+                                    "Dark"
                                 }
-                                li {
-                                    a href="#" {
-                                        "Save"
-                                    }
+                                option value="light" {
+                                    "Light"
                                 }
-                                li {
-                                    a href="#" {
-                                        "Info"
-                                    }
+                                option value="cupcake" {
+                                    "Cupcake"
                                 }
                             }
-                        }
                     }
                 }
             }
         }
 
-        img src="http://localhost:12500/_assets/png/barrel_E.png" alt="isometric" {}
+        }
+
+        img src="http://localhost:12500/_assets/png/isometric/barrel_E.png" alt="isometric" {}
     }
 }
 

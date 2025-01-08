@@ -39,27 +39,43 @@ fn any_css(name: String) -> content::RawCss<String> {
 #[response(content_type = "image/png")]
 struct ImageResponse(Vec<u8>);
 
-#[get("/png/<name>")]
-fn any_png(name: String) -> ImageResponse {
-    let file = read_any_file(name.as_str(), "isometric");
+#[get("/png/<path>/<name>")]
+fn any_png(path: String, name: String) -> ImageResponse {
+    let file = read_any_file(name.as_str(), path.as_str());
     let bytes = file.contents();
     ImageResponse(bytes.to_vec())
 }
 
+#[derive(Responder)]
+#[response(content_type = "image/x-icon")]
+struct IconResponse(Vec<u8>);
+
+#[get("/favicon/<name>")]
+fn any_favicon(name: String) -> IconResponse {
+    let file = read_any_file(name.as_str(), "favicon");
+    let bytes = file.contents();
+    IconResponse(bytes.to_vec())
+}
+
 pub fn api() -> (&'static str, Vec<Route>) {
-    ("/_assets", routes![any_css, any_js, any_png])
+    ("/_assets", routes![any_css, any_js, any_png, any_favicon])
 }
 
 pub mod frontend {
     use maud::{html, Markup, PreEscaped};
 
-    const PICO: &str = r#"<link rel="stylesheet" href="_assets/css/pico.css">"#;
+    const TAILWIND: &str = r#"<link href="./_assets/css/tw.css" rel="stylesheet">"#;
     const HTMX: &str = r#"<script src="/_assets/js/htmx.js"></script>"#;
+    const FAVICON: &str =
+        r#"<link rel="icon" type="image/x-icon" href="/_assets/favicon/favicon.ico">"#;
+    const THEME_CHOOSER: &str = r#"<script src="/_assets/js/themechooser.js"></script>"#;
 
     pub fn resources() -> Markup {
         html! {
-        (PreEscaped(PICO))
         (PreEscaped(HTMX))
+        (PreEscaped(FAVICON))
+        (PreEscaped(TAILWIND))
+        (PreEscaped(THEME_CHOOSER))
            }
     }
 }

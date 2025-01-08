@@ -13,7 +13,7 @@ pub fn page(markup: Markup) -> Markup {
                 ({title("Fighting Sisters")})
             }
 
-            body class="container" {
+            body {
                 (markup)
         }
        }
