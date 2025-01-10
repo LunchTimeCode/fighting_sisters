@@ -12,10 +12,9 @@ fn example() -> Markup {
     html! {
 
     body {
-
         div."navbar bg-base-100" {
             div."flex-1" {
-                a."btn btn-ghost text-xl" {
+                button ."btn btn-ghost text-xl" hx-get="/game" hx-target="#content" {
                     "Fighting Sisters"
                 }
             }
@@ -28,28 +27,37 @@ fn example() -> Markup {
                         }
                     }
                     ul."menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow" tabindex="0" {
-                        select data-choose-theme {
-                                option value="" {
-                                    "Default"
-                                }
-                                option value="dark" {
-                                    "Dark"
-                                }
-                                option value="light" {
-                                    "Light"
-                                }
-                                option value="cupcake" {
-                                    "Cupcake"
+                        li {
+                                a."justify-between" {
+                                    "Save"
                                 }
                             }
+                            li {
+                                button
+                                 hx-get="/settings"
+                                 hx-target="#content"
+                                {
+                                    "Settings"
+                                }
+                            }
+                            li {
+                                a {
+                                    "About"
+                                }
+                            }
+
                     }
                 }
             }
         }
 
+        div id="content" {
+
         }
 
-        img src="http://localhost:12500/_assets/png/isometric/barrel_E.png" alt="isometric" {}
+        }
+
+
     }
 }
 
