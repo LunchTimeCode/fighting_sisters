@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-              'stone-tile': "url('/_assets/tiles/stone.png')",
+              'stone-tile': "url('/_assets/tiles/stone_s.png')",
               'portrait': "url('/_assets/png/portraits/silver_siren.png')",
             }
     },

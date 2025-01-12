@@ -15,6 +15,7 @@ mod game_view;
 mod page;
 mod settings;
 mod tile_view;
+mod htmx;
 
 #[launch]
 fn rocket() -> _ {
