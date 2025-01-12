@@ -2,13 +2,20 @@
 module.exports = {
   content: ["./src/**/*.{html,js,rs}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+              'stone-tile': "url('/_assets/tiles/stone.png')",
+              'portrait': "url('/_assets/png/portraits/silver_siren.png')",
+            }
+    },
   },
   plugins: [  
     require('daisyui'),
   ],
   daisyui: {
-     themes: ["light", "dark", "cupcake"],
+    base: false,
+    darkTheme: "dark",
+    themes: false,
    },
 }
 
