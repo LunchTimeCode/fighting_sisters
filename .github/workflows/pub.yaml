@@ -9,7 +9,7 @@ on:
 jobs:
   # Verifies all tests pass
   verify:
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
       contents: read
@@ -21,7 +21,7 @@ jobs:
         with:
          fetch-depth: 0 # Fetch the whole history and tags.
       - uses: dtolnay/rust-toolchain@stable
-      - uses: useblacksmith/rust-cache@v3
+      - uses: Swatinem/rust-cache@v2
 
       - uses: taiki-e/install-action@v2
         with:
@@ -33,7 +33,7 @@ jobs:
   release:
     needs: verify
     if: github.ref == 'refs/heads/main'
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
@@ -51,7 +51,7 @@ jobs:
   publish:
     needs: [ verify, release ]
     if: needs.verify.result == 'success' && needs.release.outputs.released
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
         contents: read
@@ -73,7 +73,7 @@ jobs:
         shell: bash  
   pub_lib:
     needs: [ publish ]
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     if: needs.verify.result == 'success' && needs.release.outputs.released
     steps:
       - uses: actions/checkout@v4
