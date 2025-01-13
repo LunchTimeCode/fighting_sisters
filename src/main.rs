@@ -12,10 +12,10 @@ mod events;
 mod game;
 mod game_state;
 mod game_view;
+mod htmx;
 mod page;
 mod settings;
 mod tile_view;
-mod htmx;
 
 #[launch]
 fn rocket() -> _ {
@@ -34,7 +34,6 @@ fn mount(rocket: Rocket<Build>) -> Rocket<Build> {
     let (body_path, body_routes) = body::api();
     let (settings_path, settings_routes) = settings::api();
     let (game_path, game_routes) = game_view::api();
-    let (event_path, event_routes) = events::api();
     let (tile_path, tile_routes) = tile_view::api();
     let game_state = game_state::initial_state();
     rocket
@@ -42,7 +41,6 @@ fn mount(rocket: Rocket<Build>) -> Rocket<Build> {
         .mount(body_path, body_routes)
         .mount(settings_path, settings_routes)
         .mount(game_path, game_routes)
-        .mount(event_path, event_routes)
         .mount(tile_path, tile_routes)
         .manage(game_state)
 }

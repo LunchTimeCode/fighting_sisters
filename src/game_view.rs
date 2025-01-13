@@ -2,7 +2,7 @@ use grid::Grid;
 use maud::{html, Markup};
 use rocket::{response::content, Route};
 
-use crate::{_State, game::Tile, tile_view};
+use crate::{_State, events, game::Tile, htmx, tile_view};
 
 #[get("/")]
 async fn game(state: &_State) -> content::RawHtml<String> {
@@ -16,7 +16,10 @@ fn game_m(grid: Grid<Tile>) -> Markup {
     html! {
         div .container .mx-auto {
             (grid_markup)
+        }
 
+        div .container .mx-auto hx-get="/tile/debug" hx-trigger=(htmx::hx_event(events::ANY_TILE_SELECTED)) {
+    
         }
 
     }
@@ -50,10 +53,11 @@ pub fn column_markup(rows: Vec<Markup>) -> Markup {
 }
 
 pub fn row_markup(row: Vec<Tile>) -> Markup {
+
     html! {
         div .flex .flex-row  {
             @for tile in row {
-                (tile_view::tile_markup(tile))
+                (tile_view::tile_markup(tile, false))
             }
         }
     }

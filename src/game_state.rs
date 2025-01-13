@@ -3,9 +3,9 @@ use std::sync::Arc;
 use grid::Grid;
 use rocket::tokio::sync::Mutex;
 
+use crate::events;
 use crate::events::Coordinates;
 use crate::game;
-use crate::events;
 
 type LockedGameState = Arc<Mutex<GameState>>;
 
@@ -30,20 +30,21 @@ impl _GameState {
 #[derive(Debug, Clone)]
 pub struct GameState {
     grid: grid::Grid<game::Tile>,
-    event_queue: events::EventQueue,
+    selected_tile: game::Tile,
 }
 
 impl GameState {
     pub fn grid(&self) -> grid::Grid<game::Tile> {
         self.grid.clone()
     }
-    
-    pub fn remove_next_event(&mut self) -> Option<events::Event> {
-        self.event_queue.remove_next_event().ok()
+
+    pub fn select_tile(&mut self, c: Coordinates) -> game::Tile {
+        self.selected_tile = self.grid.get(c.y as usize, c.x as usize).unwrap().clone();
+        self.selected_tile.clone()
     }
-    
-    pub fn select_tile(&mut self, c: Coordinates){
-        self.event_queue.select_tile(c);
+
+    pub fn selected_tile(&self) -> game::Tile {
+        self.selected_tile.clone()
     }
 }
 
@@ -51,7 +52,7 @@ impl Default for GameState {
     fn default() -> Self {
         GameState {
             grid: initial_grid(),
-            event_queue: events::EventQueue::new(),
+            selected_tile: game::Tile::default(),
         }
     }
 }
