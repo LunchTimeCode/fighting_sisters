@@ -3,9 +3,8 @@ use std::sync::Arc;
 use grid::Grid;
 use rocket::tokio::sync::Mutex;
 
-use crate::events;
 use crate::events::Coordinates;
-use crate::game::{self, Tile};
+use crate::game::Tile;
 
 type LockedGameState = Arc<Mutex<GameState>>;
 

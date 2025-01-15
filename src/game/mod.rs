@@ -1,6 +1,6 @@
 use crate::events::{Coordinates, EventType};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct Tile {
     y: i32,
     x: i32,
@@ -41,15 +41,5 @@ impl Tile {
 
     pub fn selected_event(&self) -> String {
         EventType::SelectedTile(Coordinates::new(self.x, self.y)).hx_event()
-    }
-}
-
-impl Default for Tile {
-    fn default() -> Self {
-        Tile {
-            y: 0,
-            x: 0,
-            selected: false,
-        }
     }
 }

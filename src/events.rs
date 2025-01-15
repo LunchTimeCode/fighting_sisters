@@ -1,6 +1,6 @@
 pub const ANY_TILE_SELECTED: &str = "selected-tile";
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 #[allow(unused)]
 pub struct Coordinates {
     pub x: i32,
@@ -10,12 +10,6 @@ pub struct Coordinates {
 impl Coordinates {
     pub fn new(x: i32, y: i32) -> Coordinates {
         Coordinates { x, y }
-    }
-}
-
-impl Default for Coordinates {
-    fn default() -> Self {
-        Self { x: 0, y: 0 }
     }
 }
 

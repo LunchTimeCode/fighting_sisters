@@ -1,6 +1,6 @@
 use maud::{html, Markup};
 use rocket::{
-    response::content::{self, RawHtml},
+    response::content::{self},
     Route,
 };
 
@@ -8,7 +8,7 @@ use crate::{
     _State,
     events::{Coordinates, ANY_TILE_SELECTED},
     game::Tile,
-    htmx::{self, Hxh},
+    htmx::Hxh,
 };
 
 pub fn tile_markup(tile: Tile) -> Markup {
