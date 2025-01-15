@@ -53,6 +53,13 @@ fn tiles(name: String) -> ImageResponse {
     ImageResponse(bytes.to_vec())
 }
 
+#[get("/chars/<name>")]
+fn chars(name: String) -> ImageResponse {
+    let file = read_any_file(name.as_str(), "chars");
+    let bytes = file.contents();
+    ImageResponse(bytes.to_vec())
+}
+
 #[derive(Responder)]
 #[response(content_type = "image/x-icon")]
 struct IconResponse(Vec<u8>);
@@ -67,7 +74,7 @@ fn any_favicon(name: String) -> IconResponse {
 pub fn api() -> (&'static str, Vec<Route>) {
     (
         "/_assets",
-        routes![any_css, any_js, any_png, any_favicon, tiles],
+        routes![any_css, any_js, any_png, any_favicon, tiles, chars],
     )
 }
 

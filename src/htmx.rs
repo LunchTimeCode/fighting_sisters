@@ -1,5 +1,10 @@
-use maud::Markup;
-use rocket::{http::{ContentType, Header}, response::{content::{self, RawHtml}, Responder}};
+use rocket::{
+    http::Header,
+    response::{
+        content::{self, RawHtml},
+        Responder,
+    },
+};
 
 pub type Hxh = HXResponder<String>;
 
@@ -12,18 +17,18 @@ pub struct HXResponder<T> {
 impl Hxh {
     pub fn new(header: impl Into<String>, html: Option<content::RawHtml<String>>) -> Self {
         let header: String = header.into();
-        let inner_html = html.unwrap_or(content::RawHtml("".to_string()));    
+        let inner_html = html.unwrap_or(content::RawHtml("".to_string()));
         HXResponder {
             inner: inner_html,
             header: HXHeader(header).into(),
         }
     }
-    
+
     pub fn only_header(header: impl Into<String>) -> Self {
         let header: String = header.into();
         Hxh::new(header, None)
     }
-    
+
     pub fn many(many: Vec<impl Into<String>>, html: Option<content::RawHtml<String>>) -> Self {
         let s: Vec<String> = many
             .into_iter()
@@ -44,7 +49,6 @@ impl From<Hxh> for RawHtml<String> {
     }
 }
 
-
 struct HXHeader(String);
 
 impl From<HXHeader> for Header<'static> {
@@ -53,8 +57,3 @@ impl From<HXHeader> for Header<'static> {
         Header::new("HX-Trigger", hx.0)
     }
 }
-
-pub fn hx_event(event: impl Into<String>) -> String {
-   format!("{} from:body", event.into())
-}
- 

@@ -1,10 +1,4 @@
-use rocket::Route;
-
-use crate::{_State, htmx};
-
-
 pub const ANY_TILE_SELECTED: &str = "selected-tile";
-
 
 #[derive(Debug, Clone)]
 #[allow(unused)]
@@ -26,22 +20,6 @@ impl Default for Coordinates {
 }
 
 #[derive(Debug, Clone)]
-pub struct Event {
-    order: i128,
-    event_type: EventType,
-}
-
-impl Event {
-    pub fn new(order: i128, event_type: EventType) -> Event {
-        Event { order, event_type }
-    }
-
-    pub fn event_type(&self) -> EventType {
-        self.event_type.clone()
-    }
-}
-
-#[derive(Debug, Clone)]
 #[allow(unused)]
 pub enum EventType {
     SelectedTile(Coordinates),
@@ -54,8 +32,6 @@ impl EventType {
         }
     }
 }
-
-
 
 impl From<String> for EventType {
     fn from(value: String) -> Self {

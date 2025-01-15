@@ -1,7 +1,7 @@
 use maud::{html, Markup};
 use rocket::{response::content, Route};
 
-use crate::page;
+use crate::{events::ANY_TILE_SELECTED, page};
 
 #[get("/")]
 pub fn body() -> content::RawHtml<String> {
@@ -14,7 +14,7 @@ fn example() -> Markup {
     body {
         div."navbar bg-base-100" {
             div."flex-1" {
-                button ."btn btn-ghost text-xl" hx-get="/game" hx-target="#content" {
+                button ."btn btn-ghost text-xl" hx-get="/game" hx-target="#content" hx-trigger=(ANY_TILE_SELECTED.to_owned()+" from:body delay:200ms"+","+"click"+" ,"+"intersect once") {
                     "Fighting Sisters"
                 }
             }
@@ -51,7 +51,7 @@ fn example() -> Markup {
             }
         }
 
-        div id="content" {
+        div id="content" .container {
 
         }
 

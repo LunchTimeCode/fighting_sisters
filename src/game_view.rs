@@ -2,25 +2,34 @@ use grid::Grid;
 use maud::{html, Markup};
 use rocket::{response::content, Route};
 
-use crate::{_State, events, game::Tile, htmx, tile_view};
+use crate::{_State, components, game::Tile, tile_view};
 
 #[get("/")]
 async fn game(state: &_State) -> content::RawHtml<String> {
-    let grid = state.get().await.grid();
-    content::RawHtml(game_m(grid).into_string())
+    let state = state.get().await;
+    let grid = state.grid();
+    content::RawHtml(game_m(grid.clone()).into_string())
 }
 
 fn game_m(grid: Grid<Tile>) -> Markup {
     let grid_markup = grid_markup(grid);
 
     html! {
-        div .container .mx-auto {
-            (grid_markup)
+        div .flex .flex-row .mt-4 {
+
+            div .container .mx-auto {
+                (choosen_character_preview())
+            }
+
+            (components::Divider::horizontal(None).render())
+
+            div .container .mx-auto {
+                (grid_markup)
+            }
+
+
         }
 
-        div .container .mx-auto hx-get="/tile/debug" hx-trigger=(htmx::hx_event(events::ANY_TILE_SELECTED)) {
-    
-        }
 
     }
 }
@@ -53,11 +62,35 @@ pub fn column_markup(rows: Vec<Markup>) -> Markup {
 }
 
 pub fn row_markup(row: Vec<Tile>) -> Markup {
-
     html! {
         div .flex .flex-row  {
             @for tile in row {
-                (tile_view::tile_markup(tile, false))
+                (tile_view::tile_markup(tile))
+            }
+        }
+    }
+}
+
+fn choosen_character_preview() -> Markup {
+    html! {
+        div."card bg-base-100 w-96 shadow-xl" {
+            div .bg-no-repeat .bg-center .bg-local .bg-cover .bg-ice-queen .size-56 {}
+
+            div."card-body" {
+                h2."card-title" {
+                    "Cassandra!"
+                }
+                p {
+                    (components::Progress::new_red(20,100).render())
+                }
+                p {
+                    (components::Progress::new_yellow(20,100).render())
+                }
+                div."card-actions justify-end" {
+                    button."btn btn-primary" {
+                        "Fight"
+                    }
+                }
             }
         }
     }

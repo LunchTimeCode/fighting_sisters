@@ -5,7 +5,7 @@ use rocket::tokio::sync::Mutex;
 
 use crate::events;
 use crate::events::Coordinates;
-use crate::game;
+use crate::game::{self, Tile};
 
 type LockedGameState = Arc<Mutex<GameState>>;
 
@@ -22,29 +22,35 @@ impl Default for _GameState {
 }
 
 impl _GameState {
-    pub async fn get(&self) -> GameState {
-        self.state.lock().await.clone()
+    pub async fn get(&self) -> rocket::tokio::sync::MutexGuard<'_, GameState> {
+        self.state.lock().await
     }
 }
 
 #[derive(Debug, Clone)]
 pub struct GameState {
-    grid: grid::Grid<game::Tile>,
-    selected_tile: game::Tile,
+    grid: grid::Grid<Tile>,
 }
 
 impl GameState {
-    pub fn grid(&self) -> grid::Grid<game::Tile> {
-        self.grid.clone()
+    pub fn grid(&self) -> &grid::Grid<Tile> {
+        &self.grid
     }
 
-    pub fn select_tile(&mut self, c: Coordinates) -> game::Tile {
-        self.selected_tile = self.grid.get(c.y as usize, c.x as usize).unwrap().clone();
-        self.selected_tile.clone()
+    pub fn select_tile(&mut self, c: Coordinates) {
+        self.grid.iter_mut().for_each(|tile| {
+            tile.deselect();
+        });
+        let tile = self.grid.get_mut(c.y as usize, c.x as usize).unwrap();
+        tile.select();
     }
 
-    pub fn selected_tile(&self) -> game::Tile {
-        self.selected_tile.clone()
+    pub fn selected_tile(&self) -> Option<&Tile> {
+        self.grid.iter().find(|x| x.selected())
+    }
+
+    pub fn get_tile(&self, c: Coordinates) -> Tile {
+        self.grid.get(c.y as usize, c.x as usize).unwrap().clone()
     }
 }
 
@@ -52,13 +58,12 @@ impl Default for GameState {
     fn default() -> Self {
         GameState {
             grid: initial_grid(),
-            selected_tile: game::Tile::default(),
         }
     }
 }
 
-pub fn initial_grid() -> grid::Grid<game::Tile> {
-    let mut grid: grid::Grid<game::Tile> = Grid::new(8, 16);
+pub fn initial_grid() -> grid::Grid<Tile> {
+    let mut grid: grid::Grid<Tile> = Grid::new(7, 14);
     grid.indexed_iter_mut().for_each(|((y, x), tile)| {
         tile.set_y(y as i32);
         tile.set_x(x as i32);

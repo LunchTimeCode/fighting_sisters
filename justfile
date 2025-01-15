@@ -19,6 +19,7 @@ lint:
 
 fmt:
     cargo fmt
+    cargo fix
 
 w:
     cargo watch --ignore 'assets/css' -s 'just run'

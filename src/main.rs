@@ -8,6 +8,7 @@ extern crate rocket;
 
 mod assets;
 mod body;
+mod components;
 mod events;
 mod game;
 mod game_state;

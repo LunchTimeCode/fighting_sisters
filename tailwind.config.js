@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       backgroundImage: {
               'stone-tile': "url('/_assets/tiles/stone_s.png')",
-              'portrait': "url('/_assets/png/portraits/silver_siren.png')",
+              'stone-tile-dark': "url('/_assets/tiles/stone_s_dark.png')",
+              'ice-queen': "url('/_assets/chars/ice_queen.png')",
             }
     },
   },
