@@ -1,15 +1,34 @@
+use character::Character;
+
 use crate::events::{Coordinates, EventType};
+
+pub mod character;
+pub mod team;
 
 #[derive(Debug, Clone, Default)]
 pub struct Tile {
     y: i32,
     x: i32,
     selected: bool,
+    character: Option<Character>,
 }
 
 impl Tile {
-    pub fn new(y: i32, x: i32, selected: bool) -> Tile {
-        Tile { y, x, selected }
+    pub fn new(y: i32, x: i32, selected: bool, character: Option<Character>) -> Tile {
+        Tile {
+            y,
+            x,
+            selected,
+            character,
+        }
+    }
+
+    pub fn set_character(&mut self, character: Character) {
+        self.character = Some(character);
+    }
+
+    pub fn character(&self) -> Option<Character> {
+        self.character.clone()
     }
 
     pub fn set_y(&mut self, y: i32) {

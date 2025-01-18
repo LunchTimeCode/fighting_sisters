@@ -1,4 +1,5 @@
 pub const ANY_TILE_SELECTED: &str = "selected-tile";
+pub const ADDED_CHARACTER: &str = "added-char";
 
 #[derive(Debug, Clone, Default)]
 #[allow(unused)]

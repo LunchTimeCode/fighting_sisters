@@ -7,16 +7,13 @@ use rocket::{Build, Rocket};
 extern crate rocket;
 
 mod assets;
-mod body;
-mod components;
 mod events;
 mod game;
 mod game_state;
-mod game_view;
 mod htmx;
 mod page;
 mod settings;
-mod tile_view;
+mod view;
 
 #[launch]
 fn rocket() -> _ {
@@ -32,10 +29,11 @@ pub type _State = State<game_state::_GameState>;
 
 fn mount(rocket: Rocket<Build>) -> Rocket<Build> {
     let (assets_path, asset_routes) = assets::api();
-    let (body_path, body_routes) = body::api();
+    let (body_path, body_routes) = view::body::api();
     let (settings_path, settings_routes) = settings::api();
-    let (game_path, game_routes) = game_view::api();
-    let (tile_path, tile_routes) = tile_view::api();
+    let (game_path, game_routes) = view::map::api();
+    let (tile_path, tile_routes) = view::tile::api();
+    let (chars_path, chars_routes) = view::characters::api();
     let game_state = game_state::initial_state();
     rocket
         .mount(assets_path, asset_routes)
@@ -43,5 +41,6 @@ fn mount(rocket: Rocket<Build>) -> Rocket<Build> {
         .mount(settings_path, settings_routes)
         .mount(game_path, game_routes)
         .mount(tile_path, tile_routes)
+        .mount(chars_path, chars_routes)
         .manage(game_state)
 }

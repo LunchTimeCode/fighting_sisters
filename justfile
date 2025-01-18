@@ -19,7 +19,7 @@ lint:
 
 fmt:
     cargo fmt
-    cargo fix
+    cargo fix --allow-dirty --allow-staged
 
 w:
     cargo watch --ignore 'assets/css' -s 'just run'

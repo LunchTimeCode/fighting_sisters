@@ -10,6 +10,7 @@ maud = "0.26.0"
 rocket = { version = "0.5.1" }
 include_directory = "0.1.1"
 grid = "0.15.0"
+rand = "0.8.5"
 
 [dependencies.uuid]
 version = "1.11.1"

@@ -18,26 +18,23 @@ pub fn tile_markup(tile: Tile) -> Markup {
     } else {
         "bg-stone-tile"
     };
+
     html! {
-
-
-            div
-                .size-24 .flex-none .p-2
-
-             .bg-no-repeat .bg-center .bg-local .bg-cover .(selected_class)
-
-                hx-post=(url) hx-swap="outerHTML" hx-trigger="click"
-                     {
-                         (tile.selected())
-
-             p{
-                 "y" (tile.y())
-
+            div .size-24 .flex-none .p-2 .bg-no-repeat .bg-center .bg-local .bg-cover .(selected_class)
+            //---------htmx-----------
+            hx-post=(url) hx-swap="outerHTML" hx-trigger="click" {
+             (character_markup(tile))
              }
-             p{
-                 "x" (tile.x())
-             }
-             }
+    }
+}
+
+pub fn character_markup(tile: Tile) -> Markup {
+    if let Some(character) = tile.character() {
+        html! {
+                div .bg-no-repeat .bg-center .bg-local .bg-cover .(character.image()) .size-12 {}
+        }
+    } else {
+        html! {}
     }
 }
 
@@ -58,7 +55,7 @@ pub async fn select_tile(state: &_State, x: i32, y: i32) -> Hxh {
 }
 
 #[get("/get/<x>/<y>")]
-pub async fn selected_tile(state: &_State, x: i32, y: i32) -> Hxh {
+async fn selected_tile(state: &_State, x: i32, y: i32) -> Hxh {
     let tile = state.get().await.get_tile(Coordinates::new(x, y));
     let tile_view = tile_markup(tile.clone());
 

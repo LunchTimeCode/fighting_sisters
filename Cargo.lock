@@ -237,6 +237,7 @@ dependencies = [
  "grid",
  "include_directory",
  "maud",
+ "rand",
  "rocket",
  "uuid",
 ]
