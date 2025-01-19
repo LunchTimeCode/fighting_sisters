@@ -11,8 +11,6 @@ mod events;
 mod game;
 mod game_state;
 mod htmx;
-mod page;
-mod settings;
 mod view;
 
 #[launch]
@@ -30,7 +28,7 @@ pub type _State = State<game_state::_GameState>;
 fn mount(rocket: Rocket<Build>) -> Rocket<Build> {
     let (assets_path, asset_routes) = assets::api();
     let (body_path, body_routes) = view::body::api();
-    let (settings_path, settings_routes) = settings::api();
+    let (settings_path, settings_routes) = view::settings::api();
     let (game_path, game_routes) = view::map::api();
     let (tile_path, tile_routes) = view::tile::api();
     let (chars_path, chars_routes) = view::characters::api();

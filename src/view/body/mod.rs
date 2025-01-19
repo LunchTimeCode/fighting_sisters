@@ -1,11 +1,12 @@
 use maud::{html, Markup};
 use rocket::{response::content, Route};
 
-use crate::{page, view::components};
+use crate::view::components;
 
 mod left;
 mod middle;
 mod navigation;
+mod page;
 
 #[get("/")]
 pub fn body() -> content::RawHtml<String> {
@@ -20,7 +21,7 @@ fn body_m() -> Markup {
             div .flex .flex-row .mt-4 {
 
             (left::left())
-            (components::Divider::horizontal(None).render())
+            (components::Divider::horizontal(Some("h-[700px]")).render())
             (middle::middle())
 
             }

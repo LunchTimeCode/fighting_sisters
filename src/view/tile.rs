@@ -11,7 +11,7 @@ use crate::{
     htmx::Hxh,
 };
 
-pub fn tile_markup(tile: Tile) -> Markup {
+pub fn markup(tile: Tile) -> Markup {
     let url = format!("/tile/select/{}/{}", tile.x(), tile.y());
     let selected_class = if tile.selected() {
         "bg-stone-tile-dark"
@@ -44,7 +44,7 @@ pub async fn select_tile(state: &_State, x: i32, y: i32) -> Hxh {
     state.select_tile(Coordinates::new(x, y));
     let tile = state.selected_tile().unwrap();
 
-    let tile_view = tile_markup(tile.clone());
+    let tile_view = markup(tile.clone());
 
     Hxh::many(
         vec![ANY_TILE_SELECTED.to_owned()],
@@ -55,7 +55,7 @@ pub async fn select_tile(state: &_State, x: i32, y: i32) -> Hxh {
 #[get("/get/<x>/<y>")]
 async fn selected_tile(state: &_State, x: i32, y: i32) -> Hxh {
     let tile = state.get().await.get_tile(Coordinates::new(x, y));
-    let tile_view = tile_markup(tile.clone());
+    let tile_view = markup(tile.clone());
 
     Hxh::new("", Some(content::RawHtml(tile_view.into_string())))
 }

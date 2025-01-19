@@ -1,4 +1,14 @@
-use maud::{html, Markup};
+use maud::{html, Markup, PreEscaped};
+
+pub struct Cogs;
+
+impl Cogs {
+    pub fn render() -> Markup {
+        html! {
+            (PreEscaped(static_hero_icons::twn("cog-8-tooth")))
+        }
+    }
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct Progress {

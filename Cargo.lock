@@ -239,6 +239,7 @@ dependencies = [
  "maud",
  "rand",
  "rocket",
+ "static_hero_icons",
  "uuid",
 ]
 
@@ -1191,6 +1192,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b8c4a4445d81357df8b1a650d0d0d6fbbbfe99d064aa5e02f3e4022061476d8"
 dependencies = [
  "loom",
+]
+
+[[package]]
+name = "static_hero_icons"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e776fe12e3c339cf1447d18856a1a0607e81bb3f23c6a2a35955119d94da3d2"
+dependencies = [
+ "include_directory",
 ]
 
 [[package]]
