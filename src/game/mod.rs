@@ -1,8 +1,7 @@
 use character::Character;
 
-use crate::events::{Coordinates, EventType};
-
 pub mod character;
+pub mod coordinates;
 pub mod team;
 
 #[derive(Debug, Clone, Default)]
@@ -56,9 +55,5 @@ impl Tile {
 
     pub fn deselect(&mut self) {
         self.selected = false;
-    }
-
-    pub fn selected_event(&self) -> String {
-        EventType::SelectedTile(Coordinates::new(self.x, self.y)).hx_event()
     }
 }

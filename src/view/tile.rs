@@ -6,8 +6,8 @@ use rocket::{
 
 use crate::{
     _State,
-    events::{Coordinates, ANY_TILE_SELECTED},
-    game::Tile,
+    events::ANY_TILE_SELECTED,
+    game::{coordinates::Coordinates, Tile},
     htmx::Hxh,
 };
 
@@ -46,10 +46,8 @@ pub async fn select_tile(state: &_State, x: i32, y: i32) -> Hxh {
 
     let tile_view = tile_markup(tile.clone());
 
-    let event = tile.selected_event();
-
     Hxh::many(
-        vec![event, ANY_TILE_SELECTED.to_owned()],
+        vec![ANY_TILE_SELECTED.to_owned()],
         Some(content::RawHtml(tile_view.into_string())),
     )
 }

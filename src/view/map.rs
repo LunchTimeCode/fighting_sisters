@@ -12,15 +12,9 @@ async fn game(state: &_State) -> content::RawHtml<String> {
 
 fn game_m(grid: Grid<Tile>) -> Markup {
     let grid_markup = grid_markup(grid);
-
     html! {
-
                 (grid_markup)
     }
-}
-
-pub fn api() -> (&'static str, Vec<Route>) {
-    ("/game", routes![game])
 }
 
 fn grid_markup(grid: grid::Grid<Tile>) -> Markup {
@@ -54,4 +48,8 @@ fn row_markup(row: Vec<Tile>) -> Markup {
             }
         }
     }
+}
+
+pub fn api() -> (&'static str, Vec<Route>) {
+    ("/game", routes![game])
 }

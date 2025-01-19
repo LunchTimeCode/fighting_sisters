@@ -4,8 +4,8 @@ use grid::Grid;
 use rand::seq::SliceRandom;
 use rocket::tokio::sync::Mutex;
 
-use crate::events::Coordinates;
 use crate::game::character::Character;
+use crate::game::coordinates::Coordinates;
 use crate::game::{team, Tile};
 
 type LockedGameState = Arc<Mutex<GameState>>;

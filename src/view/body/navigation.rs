@@ -1,21 +1,7 @@
 use maud::{html, Markup};
-use rocket::{response::content, Route};
 
-use crate::{
-    events::{ADDED_CHARACTER, ANY_TILE_SELECTED},
-    page,
-    view::components,
-};
-
-#[get("/")]
-pub fn body() -> content::RawHtml<String> {
-    content::RawHtml(page::page(example()).into_string())
-}
-
-fn example() -> Markup {
+pub fn navigation() -> Markup {
     html! {
-
-    body {
         div."navbar bg-base-100" {
             div."flex-1" {
                 button ."btn btn-ghost text-xl"  {
@@ -58,32 +44,5 @@ fn example() -> Markup {
             }
         }
 
-        div .container {
-            div .flex .flex-row .mt-4 {
-
-                div id="left" .container .mx-auto
-                    hx-get="/chars/current"
-                    hx-trigger=(
-                        ANY_TILE_SELECTED.to_owned()+" from:body delay:200ms"+", "+"intersect once" ){} {}
-
-                (components::Divider::horizontal(None).render())
-
-                div
-                id="content"
-                .container .mx-auto
-                hx-get="/game"
-                hx-trigger=(ANY_TILE_SELECTED.to_owned()+" from:body delay:200ms"+", "+"intersect once"+ ", " +
-                ADDED_CHARACTER + " from:body delay:200ms"){}
-
-            }
-        }
-
-        }
-
-
     }
-}
-
-pub fn api() -> (&'static str, Vec<Route>) {
-    ("/", routes![body,])
 }
