@@ -6,7 +6,7 @@ license-file = "LICENSE"
 description = "A collection of static hero icons."
 
 [dependencies]
-maud = "0.26.0"
+maud = "0.27.0"
 rocket = { version = "0.5.1" }
 include_directory = "0.1.1"
 grid = "0.15.0"
