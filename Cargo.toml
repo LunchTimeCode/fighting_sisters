@@ -9,7 +9,7 @@ description = "A collection of static hero icons."
 maud = "0.26.0"
 rocket = { version = "0.5.1" }
 include_directory = "0.1.1"
-grid = "0.15.0"
+grid = "0.18.0"
 rand = "0.8.5"
 static_hero_icons = "0.3.0"
 
