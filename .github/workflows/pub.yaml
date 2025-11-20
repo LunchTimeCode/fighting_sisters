@@ -17,7 +17,7 @@ jobs:
       checks: write
       pull-requests: write
     steps:  
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
          fetch-depth: 0 # Fetch the whole history and tags.
       - uses: dtolnay/rust-toolchain@stable
@@ -40,7 +40,7 @@ jobs:
     outputs:
       released: ${{ steps.release.outputs.release_created }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - id: release
         uses: googleapis/release-please-action@v4
         with:
@@ -59,7 +59,7 @@ jobs:
         attestations: write
         id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: taiki-e/install-action@v2
         with:
           tool: just@1,hurl@4
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.verify.result == 'success' && needs.release.outputs.released
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Rust setup
         uses: dtolnay/rust-toolchain@stable
